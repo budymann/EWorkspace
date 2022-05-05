@@ -1,0 +1,2 @@
+INSERT INTO Customer (CUSTOMER_ID, NAME) VALUES (1, 'Superman');
+INSERT INTO Customer (CUSTOMER_ID, NAME) VALUES (2, 'Batman');
