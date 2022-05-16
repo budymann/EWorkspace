@@ -4,6 +4,7 @@ package com.budymann.ProductService.resource;
 import com.budymann.ProductService.dataaccess.ProductEntity;
 import com.budymann.ProductService.domain.dto.CategoryDto;
 import com.budymann.ProductService.domain.dto.ProductDto;
+import com.budymann.ProductService.domain.dto.RelatedProductDto;
 import com.budymann.ProductService.domain.repository.ProductRepository;
 import com.budymann.ProductService.domain.service.ProductService;
 import com.budymann.ProductService.resource.model.ProductResponse;
@@ -12,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 public class ProductResource {
@@ -28,5 +32,16 @@ public class ProductResource {
         return productService.getCategory(categoryId);
     }
 
+    @GetMapping("product/prototype")
+    public ResponseEntity<Void> saveProduct(){
+        var product = productService.getProductDto(1l);
+        Set<RelatedProductDto> relatedProductDtoSet = new HashSet<>();
+        relatedProductDtoSet.add(RelatedProductDto.builder().id(2l).build());
+        relatedProductDtoSet.add(RelatedProductDto.builder().id(3l).build());
+        product.setRelatedProductDto(relatedProductDtoSet);
+
+        productService.saveProduct(product);
+        return ResponseEntity.ok().build();
+    }
 
 }

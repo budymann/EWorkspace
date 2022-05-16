@@ -1,5 +1,6 @@
 package com.budymann.ProductService.dataaccess;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,8 +18,8 @@ import java.util.UUID;
 public class SessionEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "SESSION_ID")
-    private Long sessionId;
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "SESSION_KEY")
     private UUID sessionKey;
@@ -27,6 +28,7 @@ public class SessionEntity {
     @JoinColumn(name = "CUSTOMER_ID")
     private CustomerEntity customer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "session")
     public Set<ShoppingCartItemEntity> shoppingCartItems;
 

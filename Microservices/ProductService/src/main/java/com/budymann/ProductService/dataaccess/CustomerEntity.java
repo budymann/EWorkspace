@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public class CustomerEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "CUSTOMER_ID")
-    private Long customerId;
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name="FIRST_NAME")
     private String firstName;

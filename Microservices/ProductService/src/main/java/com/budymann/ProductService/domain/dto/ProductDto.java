@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Generated
 @Data
@@ -13,10 +14,11 @@ import java.math.BigDecimal;
 @Setter
 @Builder
 public class ProductDto {
-    private Long productId;
+    private Long id;
     private String productName;
     private BigDecimal retailPrice;
     private BigDecimal discountedPrice;
     private String imageLink;
     private CategoryDto category;
+    private Set<RelatedProductDto> relatedProductDto;
 }

@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.Lock;
 import javax.persistence.LockModeType;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
-    @Lock(LockModeType.PESSIMISTIC_READ)
-    public CategoryEntity findByCategoryId(Long categoryId);
+
 }

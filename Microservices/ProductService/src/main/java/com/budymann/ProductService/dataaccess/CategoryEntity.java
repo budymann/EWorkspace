@@ -17,8 +17,8 @@ import java.util.Set;
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "CATEGORY_ID")
-    private Long categoryId;
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "CATEGORY_NAME")
     private String categoryName;

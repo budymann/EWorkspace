@@ -15,9 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class CategoryDto {
-    private Long categoryId;
+    private Long id;
     private String categoryName;
     private String categoryPath;
+    private CategoryDto parent;
     private List<CategoryDto> children;
     private List<ProductDto> products;
 }

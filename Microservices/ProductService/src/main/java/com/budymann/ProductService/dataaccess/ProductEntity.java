@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "Product")
@@ -15,8 +17,8 @@ import java.util.Collection;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "PRODUCT_ID")
-    private Long productId;
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "PRODUCT_NAME")
     private String productName;
@@ -37,4 +39,14 @@ public class ProductEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CATEGORY_ID")
     private CategoryEntity category;
+
+    @OneToMany( mappedBy="product", cascade=CascadeType.ALL, orphanRemoval = true)
+    private Set<RelatedProductEntity> relatedProducts = new HashSet<>();
+
+    @Column(name = "TAG")
+    private String productTags;
+
+    @Column(name = "Model")
+    private String model;
+
 }
