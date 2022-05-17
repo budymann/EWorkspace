@@ -2,10 +2,13 @@ package com.budymann.ProductService.domain.mapper;
 
 import com.budymann.ProductService.dataaccess.CategoryEntity;
 import com.budymann.ProductService.dataaccess.ProductEntity;
+import com.budymann.ProductService.dataaccess.ProductProductAttributeEntity;
 import com.budymann.ProductService.dataaccess.RelatedProductEntity;
 import com.budymann.ProductService.domain.dto.CategoryDto;
+import com.budymann.ProductService.domain.dto.ProductAttributeDto;
 import com.budymann.ProductService.domain.dto.ProductDto;
 import com.budymann.ProductService.domain.dto.RelatedProductDto;
+import com.budymann.ProductService.domain.repository.ProductAttributeRepository;
 import com.budymann.ProductService.domain.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,6 +21,9 @@ import java.util.Set;
 public class ProductMapper {
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    ProductAttributeRepository productAttributeRepository;
 
     @Autowired
     CategoryMapper categoryMapper;
@@ -39,6 +45,24 @@ public class ProductMapper {
                 .imageLink(from.getImageLink())
                 .category(categoryDto)
                 .build();
+
+        productDto.setRelatedProductDto(new HashSet<>());
+        for(var relatedProduct : from.getRelatedProducts()){
+            productDto.getRelatedProductDto().add(RelatedProductDto.builder()
+                    .id(relatedProduct.getProduct().getId())
+                    .productName(relatedProduct.getProduct().getProductName())
+                    .build());
+        }
+
+        productDto.setProductAttributes(new HashSet<>());
+        for(var productAttribute: from.getProductAttributes()){
+            productDto.getProductAttributes().add(ProductAttributeDto.builder()
+                            .id(productAttribute.getProductAttribute().getId())
+                            .name(productAttribute.getProductAttribute().getName())
+                            .value(productAttribute.getValue())
+                    .build());
+        }
+
 
         return productDto;
     }
@@ -73,7 +97,14 @@ public class ProductMapper {
             relatedProductSet.add(relatedProductEntity);
         }
 
-        var a = productEntity.getProductName();
+        for(var productAttribute: productDto.getProductAttributes()){
+            ProductProductAttributeEntity productProductAttributeEntity = new ProductProductAttributeEntity();
+            productProductAttributeEntity.setProduct(productRepository.getById(productDto.getId()));
+            productProductAttributeEntity.setProductAttribute(productAttributeRepository.getById(productAttribute.getId()));
+            productProductAttributeEntity.setValue(productAttribute.getValue());
+            productEntity.getProductAttributes().add(productProductAttributeEntity);
+        }
+
         return productEntity;
     }
 }

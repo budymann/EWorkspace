@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -49,4 +50,6 @@ public class ProductEntity {
     @Column(name = "Model")
     private String model;
 
+    @OneToMany( mappedBy="product", cascade=CascadeType.ALL, orphanRemoval = true)
+    private Set<ProductProductAttributeEntity> productAttributes = new HashSet<>();
 }

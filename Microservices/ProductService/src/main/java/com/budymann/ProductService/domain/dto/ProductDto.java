@@ -21,4 +21,5 @@ public class ProductDto {
     private String imageLink;
     private CategoryDto category;
     private Set<RelatedProductDto> relatedProductDto;
+    private Set<ProductAttributeDto> productAttributes;
 }

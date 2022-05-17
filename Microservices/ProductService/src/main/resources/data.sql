@@ -14,3 +14,6 @@ VALUES(2, 100, 'www.google.com', 'Samsung LED 47 In', 1000, 6, 22);
 
 INSERT INTO Product(ID, DISCOUNTED_PRICE, IMAGE_LINK, PRODUCT_NAME, RETAIL_PRICE, CATEGORY_ID, STOCK)
 VALUES(3, 10, 'www.google.com', 'Samsung LED 22 In', 500, 6, 22);
+
+INSERT INTO Product_Attribute(Id, Name) VALUES (1, 'CPU');
+INSERT INTO Product_Attribute(Id, Name) VALUES (2, 'MEMORY');
